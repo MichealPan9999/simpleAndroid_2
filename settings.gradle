@@ -1,1 +1,1 @@
-include ':app', ':ipctest', ':messengertest'
+include ':app', ':ipctest', ':messengertest', ':aidltest'
