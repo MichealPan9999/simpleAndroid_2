@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Binder;
 import android.os.IBinder;
+import android.os.Parcel;
 import android.os.RemoteCallbackList;
 import android.os.RemoteException;
 import android.os.SystemClock;
@@ -58,17 +59,53 @@ public class BookManagerService extends Service {
             */
             mListenerList.unregister(listener);
         }
+
+        @Override
+        public boolean onTransact(int code, Parcel data, Parcel reply, int flags) throws RemoteException {
+            Log.d("panzqww","这是拦截器！code:"+code+" ----flags : "+flags);
+            String packageName = null;
+            String[] packages = getPackageManager().getPackagesForUid(getCallingUid());
+            if (packages!=null && packages.length > 0)
+            {
+                packageName = packages[0];
+            }
+            Log.d("panzqww"," packageName = "+((packageName != null)?packageName:"NULL"));
+            if (packageName == null)
+            {
+
+                return false;
+            }
+            String permissionStr = "com.example.aidltest.permission.ACCESS_BOOK_SERVICE";
+            boolean checkPermission = checkPermission(BookManagerService.this,permissionStr,packageName);
+
+            if (!checkPermission)
+            {
+                Log.d("panzqww","没有权限"+permissionStr);
+                return false;
+            }
+            return super.onTransact(code, data, reply, flags);
+        }
     };
+
+    private boolean checkPermission(BookManagerService bookManagerService, String permName, String packageName) {
+        PackageManager pm = bookManagerService.getPackageManager();
+        if (PackageManager.PERMISSION_GRANTED == pm.checkPermission(permName,packageName))
+        {
+            return true;
+        }else{
+            return false;
+        }
+    }
 
     @Override
     public IBinder onBind(Intent intent) {
-        int check = checkCallingOrSelfPermission("com.example.aidltest.permission.ACCESS_BOOK_SERVICE");
+        /*int check = checkCallingOrSelfPermission("com.example.aidltest.permission.ACCESS_BOOK_SERVICE");
         Log.d("panzqww","check = "+check);
         if (check == PackageManager.PERMISSION_DENIED)
         {
             Log.d("panzqww","------没有权限"+"com.example.aidltest.permission.ACCESS_BOOK_SERVICE");
             return null;
-        }
+        }*/
         return mBinder;
     }
 
