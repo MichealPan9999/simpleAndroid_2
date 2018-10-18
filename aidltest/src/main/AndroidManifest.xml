@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.aidltest">
 
+    <permission
+        android:name="com.example.aidltest.permission.ACCESS_BOOK_SERVICE"
+        android:protectionLevel="normal"></permission>
+    <uses-permission android:name="com.example.aidltest.permission.ACCESS_BOOK_SERVICE" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"

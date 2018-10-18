@@ -2,10 +2,12 @@ package com.example.aidltest;
 
 import android.app.Service;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Binder;
 import android.os.IBinder;
 import android.os.RemoteCallbackList;
 import android.os.RemoteException;
+import android.os.SystemClock;
 import android.util.Log;
 
 import java.util.List;
@@ -60,6 +62,13 @@ public class BookManagerService extends Service {
 
     @Override
     public IBinder onBind(Intent intent) {
+        int check = checkCallingOrSelfPermission("com.example.aidltest.permission.ACCESS_BOOK_SERVICE");
+        Log.d("panzqww","check = "+check);
+        if (check == PackageManager.PERMISSION_DENIED)
+        {
+            Log.d("panzqww","------没有权限"+"com.example.aidltest.permission.ACCESS_BOOK_SERVICE");
+            return null;
+        }
         return mBinder;
     }
 
