@@ -10,6 +10,7 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/aidltest" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/bindertest" />
             <option value="$PROJECT_DIR$/contentprovidertest" />
             <option value="$PROJECT_DIR$/ipctest" />
             <option value="$PROJECT_DIR$/messengertest" />
