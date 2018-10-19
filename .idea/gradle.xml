@@ -13,6 +13,7 @@
             <option value="$PROJECT_DIR$/contentprovidertest" />
             <option value="$PROJECT_DIR$/ipctest" />
             <option value="$PROJECT_DIR$/messengertest" />
+            <option value="$PROJECT_DIR$/sockettest" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
